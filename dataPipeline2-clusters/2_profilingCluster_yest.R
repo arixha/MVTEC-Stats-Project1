@@ -154,39 +154,68 @@ names(top10cluster)
 # Cluster g4 (6)   -> Mexico, Spain, Colombia, Peru, South Africa, Argentina
 # Cluster g5 (2)   -> United States, Brazil
 
-
+countriesG1 <- top10cluster[top10cluster$cluster == 1, ]
+countriesG1 <- subset(countriesG1,select = c("location"))
+countriesG2 <- top10cluster[top10cluster$cluster == 2, ]
+countriesG2 <- subset(countriesG2,select = c("location"))
+countriesG3 <- top10cluster[top10cluster$cluster == 3, ]
+countriesG3 <- subset(countriesG3,select = c("location"))
+countriesG4 <- top10cluster[top10cluster$cluster == 4, ]
+countriesG4 <- subset(countriesG4,select = c("location"))
 
 # Cluster g1
-c_g1 <- top10 %>% 
-  filter(location %in% c("Qatar", "Bahrain", "Luxembourg", "Kuwait", "United Arab Emirates","Singapore"))
-table(c_g1$location)
+c_g1 <- top10 %>%
+  filter(location %in% countriesG1$location)
+c_g1_mean <- top10cluster %>%
+  filter(location %in% countriesG1$location)
 
-c_g1_mean <- top10cluster %>% 
-  filter(location %in% c("Qatar", "Bahrain", "Luxembourg", "Kuwait", "United Arab Emirates","Singapore"))
+# c_g1 <- top10 %>% 
+#   filter(location %in% c("Qatar", "Bahrain", "Luxembourg", "Kuwait", "United Arab Emirates","Singapore"))
+# table(c_g1$location)
+
+# c_g1_mean <- top10cluster %>% 
+#   filter(location %in% c("Qatar", "Bahrain", "Luxembourg", "Kuwait", "United Arab Emirates","Singapore"))
 
 # Cluster g2
-c_g2 <- top10 %>% 
-  filter(location %in% c("Panama", "Montenegro", "Armenia", "Oman", "Maldives","Morocco", "Moldova", "Costa Rica", "Cape Verde", "Georgia", "Bahamas", "Bolivia", "Dominican Republic", "Ecuador", "Belize", "Honduras", "Suriname", "Djibouti", "Libya", "Paraguay", "Sao Tome and Principe", "Guatemala", "Eswatini", "Gabon", "Namibia", "Guyana",  "Equatorial Guinea", "New Zealand", "Marshall Islands", "Papua New Guinea","Fiji", "Solomon Islands", "Samoa", "Vanuatu"))
-table(c_g2$location)
 
-c_g2_mean <- top10cluster %>% 
-  filter(location %in% c("Panama", "Montenegro", "Armenia", "Oman", "Maldives","Morocco", "Moldova", "Costa Rica", "Cape Verde", "Georgia", "Bahamas", "Bolivia", "Dominican Republic", "Ecuador", "Belize", "Honduras", "Suriname", "Djibouti", "Libya", "Paraguay", "Sao Tome and Principe", "Guatemala", "Eswatini", "Gabon", "Namibia", "Guyana",  "Equatorial Guinea", "New Zealand", "Marshall Islands", "Papua New Guinea","Fiji", "Solomon Islands", "Samoa", "Vanuatu"))
+c_g2 <- top10 %>%
+  filter(location %in% countriesG2$location)
+c_g2_mean <- top10cluster %>%
+  filter(location %in% countriesG2$location)
+
+# c_g2 <- top10 %>% 
+#   filter(location %in% c("Panama", "Montenegro", "Armenia", "Oman", "Maldives","Morocco", "Moldova", "Costa Rica", "Cape Verde", "Georgia", "Bahamas", "Bolivia", "Dominican Republic", "Ecuador", "Belize", "Honduras", "Suriname", "Djibouti", "Libya", "Paraguay", "Sao Tome and Principe", "Guatemala", "Eswatini", "Gabon", "Namibia", "Guyana",  "Equatorial Guinea", "New Zealand", "Marshall Islands", "Papua New Guinea","Fiji", "Solomon Islands", "Samoa", "Vanuatu"))
+# table(c_g2$location)
+
+# c_g2_mean <- top10cluster %>% 
+#   filter(location %in% c("Panama", "Montenegro", "Armenia", "Oman", "Maldives","Morocco", "Moldova", "Costa Rica", "Cape Verde", "Georgia", "Bahamas", "Bolivia", "Dominican Republic", "Ecuador", "Belize", "Honduras", "Suriname", "Djibouti", "Libya", "Paraguay", "Sao Tome and Principe", "Guatemala", "Eswatini", "Gabon", "Namibia", "Guyana",  "Equatorial Guinea", "New Zealand", "Marshall Islands", "Papua New Guinea","Fiji", "Solomon Islands", "Samoa", "Vanuatu"))
 
 # Cluster g3
-c_g3 <- top10 %>% 
-  filter(location %in% c("Chile", "Israel", "Belgium", "Czechia", "Switzerland", "Canada","Australia"))
-table(c_g3$location)
+c_g3 <- top10 %>%
+  filter(location %in% countriesG3$location)
+c_g3_mean <- top10cluster %>%
+  filter(location %in% countriesG3$location)
 
-c_g3_mean <- top10cluster %>% 
-  filter(location %in% c("Chile", "Israel", "Belgium", "Czechia", "Switzerland", "Canada","Australia"))
+# c_g3 <- top10 %>% 
+#   filter(location %in% c("Chile", "Israel", "Belgium", "Czechia", "Switzerland", "Canada","Australia"))
+# table(c_g3$location)
+
+# c_g3_mean <- top10cluster %>% 
+#   filter(location %in% c("Chile", "Israel", "Belgium", "Czechia", "Switzerland", "Canada","Australia"))
 
 # Cluster g4
-c_g4 <- top10 %>% 
-  filter(location %in% c("Peru", "Spain", "Argentina", "Colombia", "South Africa", "Mexico"))
-table(c_g4$location)
 
-c_g4_mean <- top10cluster %>% 
-  filter(location %in% c("Peru", "Spain", "Argentina", "Colombia", "South Africa", "Mexico"))
+c_g4 <- top10 %>%
+  filter(location %in% countriesG4$location)
+c_g4_mean <- top10cluster %>%
+  filter(location %in% countriesG4$location)
+
+# c_g4 <- top10 %>% 
+#   filter(location %in% c("Peru", "Spain", "Argentina", "Colombia", "South Africa", "Mexico"))
+# table(c_g4$location)
+
+# c_g4_mean <- top10cluster %>% 
+#   filter(location %in% c("Peru", "Spain", "Argentina", "Colombia", "South Africa", "Mexico"))
 
 # Cluster g5
 c_g5 <- top10 %>% 
@@ -268,29 +297,28 @@ c_g5_mean <- top10clusterAll %>%
 
 # Seleccionamos las categóricas que nos dieron resultados más significativos 
 lm_c_g1 <- lm(new_cases ~ total_cases + total_cases_per_million + total_deaths + 
-                total_deaths_per_million + total_tests_per_thousand + total_tests + new_deaths + 
+                total_deaths_per_million + new_deaths + 
                 population + cardiovascular_deaths + pulmonary_deaths + diabetes_deaths + date, c_g1)
 summary(lm_c_g1)
 
+today <- today("UTC")-1
 
 # Cogemos los datos del cluster g1, para la fecha más actual del dataframe
 # Duda: ¿Está bien coger sólo 1 día o tendríamos que haber cogido más para hacer la predicción?
-g1_pred_subset <- subset(c_g1, date == max(c_g1$date))
+g1_pred_subset <- subset(c_g1, date == today)
 
 # Hacemos la media de las variables para tener los datos medios del cluster
 g1_mean_tc <- mean(g1_pred_subset$total_cases, na.rm = TRUE)
 g1_mean_tcpm <- mean(g1_pred_subset$total_cases_per_million, na.rm = TRUE)
 g1_mean_td <- mean(g1_pred_subset$total_deaths,na.rm = TRUE)
 g1_mean_tdpm <- mean(g1_pred_subset$total_deaths_per_million, na.rm = TRUE)
-g1_mean_ttpt <- mean(g1_pred_subset$total_tests_per_thousand, na.rm = TRUE)
-g1_mean_tt <- mean(g1_pred_subset$total_tests, na.rm = TRUE)
+#g1_mean_ttpt <- mean(g1_pred_subset$total_tests_per_thousand, na.rm = TRUE)
+#g1_mean_tt <- mean(g1_pred_subset$total_tests, na.rm = TRUE)
 g1_mean_nd <- mean(g1_pred_subset$new_deaths, na.rm = TRUE)
 g1_mean_p <- mean(g1_pred_subset$population, na.rm = TRUE)
 g1_mean_cd <- mean(g1_pred_subset$cardiovascular_deaths, na.rm = TRUE)
 g1_mean_pd <- mean(g1_pred_subset$pulmonary_deaths, na.rm = TRUE)
 g1_mean_dd <- mean(g1_pred_subset$diabetes_deaths, na.rm = TRUE)
-
-today <- Sys.Date()-1
 
 # mean_tc_c1 
 g1_df_pred <- data.frame(date=c(today),
@@ -298,8 +326,8 @@ g1_df_pred <- data.frame(date=c(today),
                          total_cases_per_million=c(g1_mean_tcpm),
                          total_deaths=c(g1_mean_td),
                          total_deaths_per_million=c(g1_mean_tdpm),
-                         total_tests_per_thousand=c(g1_mean_ttpt),
-                         total_tests=c(g1_mean_tt),
+                        #  total_tests_per_thousand=c(g1_mean_ttpt),
+                        #  total_tests=c(g1_mean_tt),
                          new_deaths=c(g1_mean_nd),
                          population=c(g1_mean_p),
                          cardiovascular_deaths=c(g1_mean_cd),
@@ -335,7 +363,7 @@ write.csv(g1_pred_df_final, file = "C-top10Cluster1Pred-joined.csv", row.names =
 
 # Cogemos los datos del cluster g1, para la fecha más actual del dataframe
 # Duda: ¿Está bien coger sólo 1 día o tendríamos que haber cogido más para hacer la predicción?
-g2_pred_subset <- subset(c_g2, date == max(c_g2$date))
+g2_pred_subset <- subset(c_g2, date == today)
 
 # Hacemos la media de las variables para tener los datos medios del cluster
 # eliminamos total_tests_per_thousand y total_tests de la prediccion porque en este cluster hay demasiados NA's
@@ -358,7 +386,7 @@ g2_mean_cad <- mean(g2_pred_subset$cancer_deaths, na.rm = TRUE, nan.rm = TRUE)
 today2 <- Sys.Date()-1
 
 # mean_tc_g2 
-g2_df_pred <- data.frame(date=c(today2),
+g2_df_pred <- data.frame(date=c(today),
                          total_cases=c(g2_mean_tc),
                          total_cases_per_million=c(g2_mean_tcpm),
                          total_deaths=c(g2_mean_td),
@@ -413,7 +441,7 @@ lm_c_g3 <- lm(new_cases ~ total_cases + total_cases_per_million + total_deaths +
 
 # Cogemos los datos del cluster g3, para la fecha más actual del dataframe
 # Duda: ¿Está bien coger sólo 1 día o tendríamos que haber cogido más para hacer la predicción?
-g3_pred_subset <- subset(c_g3, date == max(c_g3$date))
+g3_pred_subset <- subset(c_g3, date == today)
 
 # Hacemos la media de las variables para tener los datos medios del cluster
 # eliminamos total_tests_per_thousand y total_tests de la prediccion porque en este cluster hay demasiados NA's
@@ -432,7 +460,7 @@ g3_mean_cad <- mean(g3_pred_subset$cancer_deaths, na.rm = TRUE)
 today3 <- Sys.Date()-1
 
 # mean_tc_g3
-g3_df_pred <- data.frame(date=c(today3),
+g3_df_pred <- data.frame(date=c(today),
                          total_cases=c(g3_mean_tc),
                          total_cases_per_million=c(g3_mean_tcpm),
                          total_deaths=c(g3_mean_td),
@@ -478,7 +506,7 @@ lm_c_g4 <- lm(new_cases ~ total_cases + total_cases_per_million + total_deaths +
 
 # Cogemos los datos del cluster g4, para la fecha más actual del dataframe
 # Duda: ¿Está bien coger sólo 1 día o tendríamos que haber cogido más para hacer la predicción?
-g4_pred_subset <- subset(c_g4, date == max(c_g4$date))
+g4_pred_subset <- subset(c_g4, date == today)
 
 # Hacemos la media de las variables para tener los datos medios del cluster
 # eliminamos total_tests_per_thousand y total_tests de la prediccion porque en este cluster hay demasiados NA's
@@ -497,7 +525,7 @@ g4_mean_dd <- mean(g4_pred_subset$diabetes_deaths, na.rm = TRUE)
 
 today4 <- Sys.Date()-1
 
-g4_df_pred <- data.frame(date=c(today4),
+g4_df_pred <- data.frame(date=c(today),
                          total_cases=c(g4_mean_tc),
                          total_cases_per_million=c(g4_mean_tcpm),
                          total_deaths=c(g4_mean_td),
@@ -541,7 +569,7 @@ lm_c_g5 <- lm(new_cases ~ total_cases + total_cases_per_million + total_deaths +
 
 # Cogemos los datos del cluster g5, para la fecha más actual del dataframe
 # Duda: ¿Está bien coger sólo 1 día o tendríamos que haber cogido más para hacer la predicción?
-g5_pred_subset <- subset(c_g5, date == max(c_g5$date))
+g5_pred_subset <- subset(c_g5, date == today)
 
 # Hacemos la media de las variables para tener los datos medios del cluster
 # eliminamos total_tests_per_thousand y total_tests de la prediccion porque en este cluster hay demasiados NA's
@@ -557,9 +585,9 @@ g5_mean_cd <- mean(g5_pred_subset$cardiovascular_deaths, na.rm = TRUE)
 g5_mean_pd <- mean(g5_pred_subset$pulmonary_deaths, na.rm = TRUE)
 g5_mean_dd <- mean(g5_pred_subset$diabetes_deaths, na.rm = TRUE)
 
-today5 <- Sys.Date()-1
+# today5 <- Sys.Date()-1
 
-g5_df_pred <- data.frame(date=c(today5),
+g5_df_pred <- data.frame(date=c(today),
                          total_cases=c(g5_mean_tc),
                          total_cases_per_million=c(g5_mean_tcpm),
                          total_deaths=c(g5_mean_td),
